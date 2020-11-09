@@ -62,11 +62,11 @@ public class Ipv4Packet {
         this.version = version;
     }
 
-    public String headerLength() {
+    public String getHeaderLength() {
         return headerLength;
     }
 
-    public void headerLength(String headerLength) {
+    public void setHeaderLength(String headerLength) {
         this.headerLength = headerLength;
     }
 

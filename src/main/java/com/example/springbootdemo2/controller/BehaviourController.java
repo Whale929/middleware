@@ -55,14 +55,18 @@ public class BehaviourController {
     }
 
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public ResultJson addBehaviour(int behaviourNo, String nodeNo, String timeStamp, String strIpv4Packet, String payload) throws JsonProcessingException {
+    public ResultJson addBehaviour(int behaviourNo, String nodeNo, String timeStamp, String version,String headerLength,String typeOfService,
+                                   String totalLength,String payload) throws JsonProcessingException {
         Behaviour behaviour = new Behaviour();
         behaviour.setBehaviourNo(behaviourNo);
         behaviour.setNodeNo(nodeNo);
         behaviour.setTimeStamp(timeStamp);
         //Ipv4Packet ipv4Packet=objectMapper.readValue(strIpv4Packet,Ipv4Packet.class);
-        Ipv4Packet ipv4Packet;
-        ipv4Packet= JSON.parseObject(strIpv4Packet,Ipv4Packet.class);
+        Ipv4Packet ipv4Packet=new Ipv4Packet();
+        ipv4Packet.setVersion(version);
+        ipv4Packet.setHeaderLength(headerLength);
+        ipv4Packet.setTypeOfService(typeOfService);
+        ipv4Packet.setTotalLength(totalLength);
         behaviour.setIpv4Packet(ipv4Packet);
         behaviour.setPayload(payload);
         behaviourService.one(behaviour);
@@ -79,7 +83,6 @@ public class BehaviourController {
         ResultJson resultJson=new ResultJson(200,"OK",ipv4Packet);
         return resultJson;
     }
-
 
     @RequestMapping(value = "getPacketsByNodeNo", method = RequestMethod.GET)
     public ResultJson getPacketsByNodeId(String nodeNo) throws JsonProcessingException {

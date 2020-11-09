@@ -8,9 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.springbootdemo2")
 public class Springbootdemo2Application {
-
-
-
 //    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 //        return super.configure(builder);
 //    }

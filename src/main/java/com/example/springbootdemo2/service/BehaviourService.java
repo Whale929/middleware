@@ -44,8 +44,6 @@ public class BehaviourService {
         for(Behaviour p:list){
             listOperations.leftPush(key,p);
         }
-        log.info("--获取Redis中List的数据-从队头中取出--");
-
         //new PersistendHandler(redisTemplate).run();
     }
 
