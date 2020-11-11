@@ -2,12 +2,12 @@ package com.example.springbootdemo2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class HelloController {
-
-    @RequestMapping("/index")
-    public String satyHello(){
-        return "index";
+    @RequestMapping("/hello")
+    public String test(){
+        return "hello";
     }
 }

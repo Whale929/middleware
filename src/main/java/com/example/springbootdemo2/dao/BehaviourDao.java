@@ -14,9 +14,9 @@ import java.util.List;
 public interface BehaviourDao {
     @Insert("insert into behaviourtable(nodeNo,timeStamp,version ,headerLength ,typeOfService ,totalLength ," +
             "identifier ,flags ,fragmentOffset ,ttl ,protocol ,headerChecksum ,sourceAddresses ,destinationAddresses ,options ,payload ) " +
-            "value(#{nodeNo},#{timeStamp},#{ipv4Packet.version},#{ipv4Packet.headerLength},#{ipv4Packet.typeOfService},#{ipv4Packet.totalLength},#{ipv4Packet.identifier}," +
-            "#{ipv4Packet.flags},#{ipv4Packet.fragmentOffset},#{ipv4Packet.ttl},#{ipv4Packet.ttl},#{ipv4Packet.protocol},#{ipv4Packet.headerChecksum}," +
-            "#{ipv4Packet.sourceAddresses},#{ipv4Packet.options},#{payload})")
+            "value(#{nodeNo},#{timeStamp},#{version},#{headerLength},#{typeOfService},#{totalLength},#{identifier}," +
+            "#{flags},#{fragmentOffset},#{ttl},#{ttl},#{protocol},#{headerChecksum}," +
+            "#{sourceAddresses},#{options},#{payload})")
     void addBehaviour(Behaviour behaviour);
 
 

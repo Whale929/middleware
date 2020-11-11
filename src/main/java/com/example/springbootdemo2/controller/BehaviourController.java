@@ -56,23 +56,27 @@ public class BehaviourController {
 
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public ResultJson addBehaviour(int behaviourNo, String nodeNo, String timeStamp, String version,String headerLength,String typeOfService,
-                                   String totalLength,String payload) throws JsonProcessingException {
+                                   String totalLength,String identifier,String flags,String fragmentOffset,String ttl,String protocol,
+                                   String headerChecksum,String sourceAddresses,String destinationAddresses,String options,String payload) throws JsonProcessingException {
         Behaviour behaviour = new Behaviour();
         behaviour.setBehaviourNo(behaviourNo);
         behaviour.setNodeNo(nodeNo);
         behaviour.setTimeStamp(timeStamp);
-        //Ipv4Packet ipv4Packet=objectMapper.readValue(strIpv4Packet,Ipv4Packet.class);
-        Ipv4Packet ipv4Packet=new Ipv4Packet();
-        ipv4Packet.setVersion(version);
-        ipv4Packet.setHeaderLength(headerLength);
-        ipv4Packet.setTypeOfService(typeOfService);
-        ipv4Packet.setTotalLength(totalLength);
-        behaviour.setIpv4Packet(ipv4Packet);
+        behaviour.setVersion(version);
+        behaviour.setHeaderLength(headerLength);
+        behaviour.setTypeOfService(typeOfService);
+        behaviour.setTotalLength(totalLength);
+        behaviour.setIdentifier(identifier);
+        behaviour.setFlags(flags);
+        behaviour.setFragmentOffset(fragmentOffset);
+        behaviour.setTtl(ttl);
+        behaviour.setProtocol(protocol);
+        behaviour.setHeaderChecksum(headerChecksum);
+        behaviour.setSourceAddresses(sourceAddresses);
+        behaviour.setDestinationAddresses(destinationAddresses);
+        behaviour.setOptions(options);
         behaviour.setPayload(payload);
         behaviourService.one(behaviour);
-        //System.out.println(behaviour.toString());
-        //System.out.println(behaviour);
-        // System.out.println(objectMapper.writeValueAsString(behaviour));
         ResultJson resultJson = new ResultJson(200, "OK", behaviour);
         return resultJson;
     }
