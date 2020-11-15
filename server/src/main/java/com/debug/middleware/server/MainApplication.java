@@ -15,13 +15,9 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-/**
- * 应用启动类-入口
- * @Author:debug (SteadyJack)
- * @Date: 2019/3/2 17:58
- **/
+
 @SpringBootApplication
-@MapperScan(basePackages = "com.debug.middleware.model")
+@MapperScan(basePackages = "com.debug.middleware.model.mapper")
 public class MainApplication extends SpringBootServletInitializer {
 
     @Override

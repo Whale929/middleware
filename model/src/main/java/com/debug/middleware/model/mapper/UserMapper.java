@@ -1,20 +1,16 @@
 package com.debug.middleware.model.mapper;
 
-import com.debug.middleware.model.entity.User;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Insert;
+import org.springframework.stereotype.Repository;
 
+/**
+ * @Author:wjup
+ * @Date: 2018/9/26 0026
+ * @Time: 15:20
+ */
+@Repository
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
-
-    User selectByUserNamePassword(@Param("userName") String userName, @Param("password") String password);
+    @Insert("insert into user(userid,username) value ('123','ssscc')")
+    void insertUser();
 }
+

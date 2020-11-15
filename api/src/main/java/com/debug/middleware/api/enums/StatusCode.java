@@ -1,8 +1,6 @@
 package com.debug.middleware.api.enums;
 
-/**
- * 通用状态码类
- */
+
 public enum StatusCode {
     //以下是暂时设定的几种状态码类
     Success(0,"成功"),

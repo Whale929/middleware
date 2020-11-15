@@ -3,10 +3,7 @@ package com.debug.middleware.api.response;
 
 import com.debug.middleware.api.enums.StatusCode;
 
-/**
- * @author: debug
- * @date: 2018/12/129
- */
+
 public class BaseResponse<T> {
     //状态码
     private Integer code;

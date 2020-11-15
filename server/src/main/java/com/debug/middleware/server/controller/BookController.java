@@ -1,7 +1,5 @@
 package com.debug.middleware.server.controller;
-/**
- * Created by Administrator on 2019/3/3.
- */
+
 
 import com.debug.middleware.server.entity.Book;
 import org.slf4j.Logger;
@@ -10,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @Author:debug (SteadyJack)
- * @Date: 2019/3/3 17:34
- **/
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
