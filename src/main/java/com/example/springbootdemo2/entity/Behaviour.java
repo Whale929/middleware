@@ -196,4 +196,28 @@ public class Behaviour implements Serializable {
         this.options = options;
         this.payload = payload;
     }
+
+    @Override
+    public String toString() {
+        return "Behaviour{" +
+                "behaviourNo=" + behaviourNo +
+                ", nodeNo='" + nodeNo + '\'' +
+                ", timeStamp='" + timeStamp + '\'' +
+                ", packetNo='" + packetNo + '\'' +
+                ", version='" + version + '\'' +
+                ", headerLength='" + headerLength + '\'' +
+                ", typeOfService='" + typeOfService + '\'' +
+                ", totalLength='" + totalLength + '\'' +
+                ", identifier='" + identifier + '\'' +
+                ", flags='" + flags + '\'' +
+                ", fragmentOffset='" + fragmentOffset + '\'' +
+                ", ttl='" + ttl + '\'' +
+                ", protocol='" + protocol + '\'' +
+                ", headerChecksum='" + headerChecksum + '\'' +
+                ", sourceAddresses='" + sourceAddresses + '\'' +
+                ", destinationAddresses='" + destinationAddresses + '\'' +
+                ", options='" + options + '\'' +
+                ", payload='" + payload + '\'' +
+                '}';
+    }
 }

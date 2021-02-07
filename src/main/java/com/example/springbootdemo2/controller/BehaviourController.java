@@ -1,5 +1,7 @@
 package com.example.springbootdemo2.controller;
+
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.example.springbootdemo2.entity.Behaviour;
 import com.example.springbootdemo2.entity.Ipv4Packet;
 import com.example.springbootdemo2.entity.ResultJson;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/behaviour")
@@ -25,39 +28,17 @@ public class BehaviourController {
     @Autowired
     private BehaviourService behaviourService;
 
-    private static final Logger log= LoggerFactory.getLogger(BookController.class);
+    private static final Logger log = LoggerFactory.getLogger(BookController.class);
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    public void one(Behaviour behaviour) throws JsonProcessingException {
-        /*List<Behaviour> list=new ArrayList<>();
-        list.add(behaviour);
-
-        log.info("构造已经排好序的用户对象列表:{}",list);
-        final String key="redis:test:2";
-        ListOperations listOperations=redisTemplate.opsForList();
-        log.info("写入redis:{}",objectMapper.writeValueAsString(behaviour));
-        for(Behaviour p:list){
-            listOperations.leftPush(key,p);
-        }
-        log.info("--获取Redis中List的数据-从队头中取出--");
-        *//*Object result=listOperations.rightPop(key);
-        Behaviour resP;
-        while(result!=null){
-            resP=(Behaviour)result;
-            log.info("--当前数据--:{}",resP);
-            result=listOperations.rightPop(key);
-        }*//*
-        new PersistendHandler(redisTemplate).run();*/
-    }
-
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public ResultJson addBehaviour(int behaviourNo, String nodeNo, String timeStamp, String version,String headerLength,String typeOfService,
-                                   String totalLength,String identifier,String flags,String fragmentOffset,String ttl,String protocol,
-                                   String headerChecksum,String sourceAddresses,String destinationAddresses,String options,String payload) throws JsonProcessingException {
+    public ResultJson addBehaviour(int behaviourNo, String nodeNo, String timeStamp, String version, String headerLength, String typeOfService,
+                                   String totalLength, String identifier, String flags, String fragmentOffset, String ttl, String protocol,
+                                   String headerChecksum, String sourceAddresses, String destinationAddresses, String options, String payload) throws JsonProcessingException {
         Behaviour behaviour = new Behaviour();
         behaviour.setBehaviourNo(behaviourNo);
         behaviour.setNodeNo(nodeNo);
@@ -81,10 +62,66 @@ public class BehaviourController {
         return resultJson;
     }
 
-    @RequestMapping(value="getPacketByNodeNoPacketNo",method = RequestMethod.GET)
-    public ResultJson getPacketByNodeNoPacketNo(String nodeNo,String packetNo){
-        Ipv4Packet ipv4Packet=behaviourService.getPacketByNodeNoPacketNo(nodeNo,packetNo);
-        ResultJson resultJson=new ResultJson(200,"OK",ipv4Packet);
+    @RequestMapping(value = "addTestData", method = RequestMethod.GET)
+    public ResultJson addtestdata() throws JsonProcessingException {
+        ResultJson resultJson=null;
+        for(int i=0;i<10;i++) {
+            int a = (int) (1 + Math.random() * 10);
+            int b = (int) (1 + Math.random() * 10);
+            String ip1 = "192.168.0." + String.valueOf(a);
+            String ip2 = "192.168.0." + String.valueOf(b);
+            Behaviour behaviour = new Behaviour();
+            behaviour.setPacketNo(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setBehaviourNo((int) (1 + Math.random() * 10));
+            behaviour.setNodeNo(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setTimeStamp(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setVersion(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setHeaderLength(String.valueOf((int) (1 + Math.random() * 100)));
+            behaviour.setTypeOfService(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setTotalLength(String.valueOf((int) (1 + Math.random() * 1000)));
+            behaviour.setIdentifier(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setFlags(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setFragmentOffset(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setTtl(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setProtocol(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setHeaderChecksum(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setSourceAddresses(ip1);
+            behaviour.setDestinationAddresses(ip2);
+            behaviour.setOptions(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviour.setPayload(String.valueOf((int) (1 + Math.random() * 10)));
+            behaviourService.one(behaviour);
+            resultJson = new ResultJson(200, "OK", behaviour);
+        }
+        return resultJson;
+    }
+
+    @RequestMapping(value = "getNextPacket", method = RequestMethod.GET)
+    public ResultJson getNextPacket() {
+        Behaviour behaviour = behaviourService.getNextPacket();
+        ResultJson resultJson = new ResultJson(200, "OK", behaviour);
+
+        return resultJson;
+    }
+
+    @RequestMapping(value = "getPacketsBySize", method = RequestMethod.GET)
+    public ResultJson getPacketsBySize(int size) {
+        ArrayList<Behaviour> list = new ArrayList<Behaviour>();
+        ResultJson resultJson;
+
+        if (size <= 0)
+            return new ResultJson(400, "Parameter error:size must bigger than 1", list);
+        list = behaviourService.getPacketsBySize(size);
+        if (list.size() > 1)
+            resultJson = new ResultJson(200, "OK", list);
+        else
+            resultJson = new ResultJson(300, "No data in Message Queue", list);
+        return resultJson;
+    }
+
+    @RequestMapping(value = "getPacketByNodeNoPacketNo", method = RequestMethod.GET)
+    public ResultJson getPacketByNodeNoPacketNo(String nodeNo, String packetNo) {
+        Ipv4Packet ipv4Packet = behaviourService.getPacketByNodeNoPacketNo(nodeNo, packetNo);
+        ResultJson resultJson = new ResultJson(200, "OK", ipv4Packet);
         return resultJson;
     }
 
@@ -97,20 +134,6 @@ public class BehaviourController {
         return resultJson;
     }
 
-    /*    @RequestMapping(value = "getPacketsByNodeNo",method = RequestMethod.GET)
-        public ResultJson getPacketsByNodeId(String nodeNo) throws JsonProcessingException {
-            ResultJson resultJson=new ResultJson();
-            List<Ipv4Packet> ipv4PacketList=behaviourService.getPacketByNodeNo(nodeNo);
-            String resultMsg="[";
-            for(Ipv4Packet b : ipv4PacketList)
-            {
-                resultMsg=resultMsg+b.toString()+",";
-            }
-            resultMsg.substring(resultMsg.length()-1);
-            resultJson=new ResultJson("200","OK",resultMsg+"]");
-
-            return  resultJson;
-        }*/
     @RequestMapping("test")
     public ResultJson test(String p1, String p2) {
         ResultJson resultJson = new ResultJson(200, "OK", "null");
