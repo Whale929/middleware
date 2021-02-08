@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 /*
-git test 1.0
+git test 2.0
  */
 @RestController
 @RequestMapping("/behaviour")
@@ -66,8 +67,8 @@ public class BehaviourController {
 
     @RequestMapping(value = "addTestData", method = RequestMethod.GET)
     public ResultJson addtestdata() throws JsonProcessingException {
-        ResultJson resultJson=null;
-        for(int i=0;i<10;i++) {
+        ResultJson resultJson = null;
+        for (int i = 0; i < 10; i++) {
             int a = (int) (1 + Math.random() * 10);
             int b = (int) (1 + Math.random() * 10);
             String ip1 = "192.168.0." + String.valueOf(a);
