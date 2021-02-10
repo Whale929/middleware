@@ -31,7 +31,7 @@ public class BehaviourController {
     @Autowired
     private BehaviourService behaviourService;
 
-    private static final Logger log = LoggerFactory.getLogger(BookController.class);
+    private static final Logger log = LoggerFactory.getLogger(BehaviourController.class);
     @Autowired
     private RedisTemplate redisTemplate;
 

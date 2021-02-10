@@ -23,7 +23,7 @@ public class PersistentController {
     @Resource
     private BehaviourDao behaviourDao;
 
-    private static final Logger log= LoggerFactory.getLogger(BookController.class);
+    private static final Logger log= LoggerFactory.getLogger(PersistentController.class);
 
     @RequestMapping(value = "open",method = RequestMethod.GET)
     public void startWrite(){

@@ -1,6 +1,6 @@
 package com.example.springbootdemo2.service;
 
-import com.example.springbootdemo2.controller.BookController;
+import com.example.springbootdemo2.controller.BehaviourController;
 import com.example.springbootdemo2.dao.BehaviourDao;
 import com.example.springbootdemo2.entity.Behaviour;
 import com.example.springbootdemo2.entity.Ipv4Packet;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class BehaviourService {
-    private static final Logger log = LoggerFactory.getLogger(BookController.class);
+    private static final Logger log = LoggerFactory.getLogger(BehaviourController.class);
 
     final String key = "redis:test:2";
 

@@ -1,12 +1,11 @@
 package com.example.springbootdemo2.handler;
 
 
-import com.example.springbootdemo2.controller.BookController;
+import com.example.springbootdemo2.controller.PersistentController;
 import com.example.springbootdemo2.dao.BehaviourDao;
 import com.example.springbootdemo2.entity.Behaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -18,7 +17,7 @@ public class PersistendHandler extends Thread {
         this.behaviourDao=behaviourDao;
     }
 
-    private static final Logger log= LoggerFactory.getLogger(BookController.class);
+    private static final Logger log= LoggerFactory.getLogger(PersistendHandler.class);
 
     private RedisTemplate redisTemplate;
 
