@@ -58,4 +58,12 @@ public class RedisTest {
             log.info("读取缓存内容并反序列化后的结果：{} ",resultUser.toString());
         }
     }
+
+    @Test
+    public void three(){
+        String sourceAddr="192.168.0.";
+        sourceAddr=sourceAddr+(int)(Math.random() * 5);
+
+        System.out.println(sourceAddr);
+    }
 }
