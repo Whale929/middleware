@@ -46,4 +46,5 @@ public class Packet  implements Serializable {
     public void setPayload(Payload payload) {
         this.payload = payload;
     }
+
 }

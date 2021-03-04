@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/packet")
@@ -24,7 +25,6 @@ public class PacketController {
     private PacketService packetService;
 
     private static Logger log = LoggerFactory.getLogger(PacketController.class);
-
 
     @GetMapping("getPacketsBySize")
     public ResultJson getPacketsBySize(Integer size) {
@@ -40,7 +40,7 @@ public class PacketController {
             resultJson.setStatus(400);
             return resultJson;
         } else {
-            arrayList = packetService.getPacketBySize(size);
+            arrayList = packetService.popPacketBySize(size);
         }
 
         if (arrayList.size() == 0) {
@@ -62,10 +62,19 @@ public class PacketController {
         return resultJson;
     }
 
+    @PostMapping("inputPackets")
+    public ResultJson inputPackets(@RequestBody List<Packet> packetList) throws JsonProcessingException {
+        for (Packet packet:packetList){
+            packetService.addPacket(packet);
+        }
+        ResultJson resultJson = new ResultJson(200, "OK", packetList);
+        return resultJson;
+    }
+
     @GetMapping("addTestData")
     public ResultJson addTestData(Integer packetNum, Integer nodeNum) throws JsonProcessingException {
-        if (packetNum <= 0 || nodeNum <= 0) {
-             return new ResultJson(400,"error","parameter error");
+        if (packetNum == null || nodeNum == null||packetNum <= 0 || nodeNum <= 0 ) {
+            return new ResultJson(400, "error", "parameter error");
         }
 
         ArrayList<Packet> arrayList = new ArrayList<>();

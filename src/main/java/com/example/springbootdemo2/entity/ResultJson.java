@@ -9,7 +9,10 @@ public class ResultJson {
     private String message;
     private Object data;
 
-    public ResultJson(){}
+    public ResultJson(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.timestamp = df.format(new Date());
+    }
 
     public String getTimestamp() {
         return timestamp;

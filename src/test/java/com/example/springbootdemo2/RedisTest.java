@@ -1,5 +1,6 @@
 package com.example.springbootdemo2;
 
+import com.example.springbootdemo2.entity.Packet;
 import com.example.springbootdemo2.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -18,6 +19,9 @@ public class RedisTest {
     private static final Logger log= LoggerFactory.getLogger(RedisTest.class);
     @Autowired
     private RedisTemplate redisTemplate;
+
+    final String key = "redis:packet:1";
+
     @Test
     public void one(){
         log.info("----开始----");
@@ -46,24 +50,28 @@ public class RedisTest {
 
         //将序列化后的信息写入缓存中
         final String key="redis:template:two:object";
-        final String content=objectMapper.writeValueAsString(user);
+        //final String content=objectMapper.writeValueAsString(user);
+        final String content=user.toString();
 
         valueOperations.set(key,content);
         log.info("写入缓存对象的信息：{} ",user);
 
         //从缓存中读取内容
-        Object result=valueOperations.get(key);
+/*        Object result=valueOperations.get(key);
         if (result!=null){
             User resultUser=objectMapper.readValue(result.toString(), User.class);
             log.info("读取缓存内容并反序列化后的结果：{} ",resultUser.toString());
-        }
+        }*/
     }
 
     @Test
     public void three(){
-        String sourceAddr="192.168.0.";
-        sourceAddr=sourceAddr+(int)(Math.random() * 5);
-
-        System.out.println(sourceAddr);
+        Packet packet = null;
+        Object obj = redisTemplate.opsForList().index(key,redisTemplate.opsForList().size(key)-1);
+        if (obj != null) {
+            packet = (Packet) obj;
+            System.out.println("obj:" + obj.toString());
+            System.out.println(packet.toString());
+        }
     }
 }

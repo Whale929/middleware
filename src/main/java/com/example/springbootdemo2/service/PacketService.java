@@ -32,7 +32,7 @@ public class PacketService {
         this.addToRedis(packet);
     }
 
-    public Packet getNextPacket() {
+    public Packet popNextPacket() {
         Packet packet = null;
         Object obj = redisTemplate.opsForList().rightPop(key);
         if (obj != null) {
@@ -43,11 +43,22 @@ public class PacketService {
         return packet;
     }
 
-    public ArrayList getPacketBySize(int size) {
+    public Packet getNextPacket() {
+        Packet packet = null;
+        Object obj = redisTemplate.opsForList().index(key,redisTemplate.opsForList().size(key)-1);
+        if (obj != null) {
+            packet = (Packet) obj;
+            System.out.println("obj:" + obj.toString());
+            System.out.println(packet.toString());
+        }
+        return packet;
+    }
+
+    public ArrayList popPacketBySize(int size) {
         ArrayList<Packet> list = new ArrayList<>();
 
         while (size > 0) {
-            Packet packet = getNextPacket();
+            Packet packet = popNextPacket();
             if(packet==null)
                 break;
             size--;
