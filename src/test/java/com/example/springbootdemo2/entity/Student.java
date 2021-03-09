@@ -1,11 +1,14 @@
 package com.example.springbootdemo2.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 
 
 
 public class Student implements Serializable{
 
+    @JSONField(deserialize = false)
     private String id;
     private String userName;
     private String name;

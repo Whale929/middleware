@@ -3,24 +3,16 @@ package com.example.springbootdemo2.entity;
 import java.io.Serializable;
 
 public class Fruit implements Serializable{
-
+    private long id;
     private String name;
     private String color;
 
-    public Fruit() {
+    public long getId() {
+        return id;
     }
 
-    public Fruit(String name, String color) {
-        this.name = name;
-        this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return "Fruit{" +
-                "name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                '}';
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
